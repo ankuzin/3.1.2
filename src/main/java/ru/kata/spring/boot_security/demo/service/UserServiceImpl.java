@@ -32,7 +32,7 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public List<User> getAllUsers() {
         List<User> users = userRepository.findAll();
-        users.forEach(user -> Hibernate.initialize(user.getRoles())); // Инициализируем роли у всех пользователей
+        users.forEach(user -> Hibernate.initialize(user.getRoles()));
         return users;
     }
 
@@ -61,7 +61,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public void updateUser(Long id, String username, String address, String email, String password, Set<String> roleNames) {
+    public void updateUser(Long id, String username, String address, String email,
+                           String password, Set<String> roleNames) {
         User user = userRepository.findById(id).orElse(null);
         if (user != null) {
             user.setUsername(username);
